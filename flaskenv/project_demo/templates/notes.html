@@ -3,4 +3,10 @@
 <h3>{{note.title}}</h3><hr>
 
 <p>{{note.body}}</p>
+<p>{{note.id}}</p>
+<p>
+    <a href="/notes/update/{{ note.id }}">Edit</a>
+    <a href="/notes/delete/{{ note.id }}">Delete</a>
+</p>
+
 {% endfor %}

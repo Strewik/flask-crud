@@ -41,6 +41,38 @@ def RetrieveDataList():
     return render_template('notes.html',notes = notes)
 
 
+@app.route('/notes/delete/<int:id>', methods=['GET','POST'])
+def delete(id):
+    note = Note.query.filter_by(id=id).first()
+    if request.method == 'POST':
+        if note:
+            db.session.delete(note)
+            db.session.commit()
+            return redirect('/notes')
+        
+    return render_template('delete.html')
+
+
+@app.route('/notes/update/<int:id>',methods = ['GET','POST'])
+def update(id):
+    note = Note.query.filter_by(id=id).first()
+    if request.method == 'POST':
+        if note:
+            db.session.delete(note)
+            db.session.commit()
+
+            title = request.form['title']
+            body = request.form['body']
+            note = Note(title=title, body=body)
+ 
+            db.session.add(note)
+            db.session.commit()
+            return redirect('/notes')
+         
+        return f"Note with id = {id} Does not exist"
+ 
+    return render_template('update.html', note = note)
+
 
 
 
